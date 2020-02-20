@@ -2,7 +2,6 @@ import React from 'react';
 import { Navbar,Nav} from 'react-bootstrap';
 import styled from 'styled-components';
 import './header.css';
-import home_image from '../../images/home.png'
 import FontAwesome from 'react-fontawesome';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faTumblr, faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -12,7 +11,7 @@ const Styles = styled.div`
   
 .navbar {
     background-color:#1C262B;
-    height:120px;
+    height:100px;
 }
 .navbar-brand{
     padding-left:40px;

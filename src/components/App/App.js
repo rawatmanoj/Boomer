@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Home from '../elements/Home/home';
-import Header from '../elements/header/header'
+import Home from '../../components/Home/Home';
+import Header from '../elements/header/header';
 
 const App = () => {
     return (
@@ -10,7 +10,7 @@ const App = () => {
            <React.Fragment>
              <Header/>
              <Switch>
-               <Home/>
+             <Route path="/" component={Home} exact />
              </Switch>
            </React.Fragment>
         </BrowserRouter>
