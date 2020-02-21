@@ -1,41 +1,149 @@
 import React, { Component } from 'react';
 import SingerImage from '../elements/SingerImage/SingerImage';
-import axios from 'axios';
+import SpotifyWebApi from 'spotify-web-api-js';
+const spotifyApi = new SpotifyWebApi();
 
-class Home extends Component {
+// const spotifyWebApi = new Spotify();
 
-    state={
-       
-        tracks:[],
-        SingerImage:[],
-        loading:false,
-        searchItem:''
+// class Home extends Component {
+
+//     state={
+//         loggedIn:false,
+//         tracks:[],
+//         SingerImage:[],
+//         loading:false,
+//         searchItem:'',
+//         nowPlaying:{
+//             name:"not present",
+//             image:''
+//         }
  
-    };
+//     };
 
-    componentDidMount(){
+//     componentDidMount(){
+//         var params = this.getHashParams();
+//          if(params.access_token){
+//           this.setState({
+//             loggedIn:true
+//         })
+         
+//     }else{
+//         this.setState({
+//             loggedIn:false
+//         })
+//     }
+
+//     if(params.access_token){
+//          spotifyWebApi.setAccessToken(params.access_token);
+//     }
+    
+// }
+
+// getNowPlaying=()=>{
+//     spotifyWebApi.getMyCurrentPlaybackState()
+//     .then(response=>{
+//      return response.json();
+//     })
+//     .then(result=>{
+//         // this.setState({
+//         //     nowPlaying:{
+//         //         name:response.item.name,
+//         //         image:response.item.album.images[0]
+//         //     }
+//         // });
+//         console.log(result);
+//     })
+//     .catch(e=>{
+//         //console.log(e);
+//     })
+// }
+
+//     getHashParams() {
+//         var hashParams = {};
+//         var e, r = /([^&;=]+)=?([^&;]*)/g,
+//             q = window.location.hash.substring(1);
+//         while ( e = r.exec(q)) {
+//            hashParams[e[1]] = decodeURIComponent(e[2]);
+//         }
+//         return hashParams;
+//       }
+
+
+//     render() {
+//         // console.log(this.state.loggedIn);
+//         return (
+//             <div>
+//                 <SingerImage/>
+//                 <div>
+//                     Now Playing:{this.state.nowPlaying.name}
+//                 </div>
+//                 <div>
+//                     <img src={this.state.nowPlaying.image} style={{width:100}}/>
+//                 </div>
+//                 <button onClick={this.getNowPlaying}>check now playing</button>
+//             </div>
+//         );
+//     }
+// }
+
+// export default Home;
+class Home extends Component {
+    constructor(){
        
-        //  const url=`https://api.musixmatch.com/ws/1.1/`;
-        //  const cors=`https://cors-anywhere.herokuapp.com/`;
-        //  const key=`e3e22e88e7944ae1fd48b29d9dc8ec44`;
-        // axios.get(`${cors}${url}artist.get?artist_id=118&apikey=${key}`)
-        // .then(res=>console.log(res.data))
-        // .catch(err=>console.log("error"))
-
-        axios.get(``)
-        .then(res=>console.log(res.data))
-        .catch(err=>console.log("error"));
-
+      super();
+      const params = this.getHashParams();
+      const token = params.access_token;
+      if (token) {
+        spotifyApi.setAccessToken(token);
+      }
+      this.state = {
+        loggedIn: token ? true : false,
+        nowPlaying: { name: 'Not Checked', albumArt: '' }
+      }
     }
-
-
+    getHashParams() {
+      var hashParams = {};
+      var e, r = /([^&;=]+)=?([^&;]*)/g,
+          q = window.location.hash.substring(1);
+      e = r.exec(q)
+      while (e) {
+         hashParams[e[1]] = decodeURIComponent(e[2]);
+         e = r.exec(q);
+      }
+      return hashParams;
+    }
+  
+    getNowPlaying(){
+      spotifyApi.getMyCurrentPlaybackState()
+        .then((response) => {
+        //   this.setState({
+        //     nowPlaying: { 
+        //         name: response.item.name, 
+        //         albumArt: response.item.album.images[0].url
+        //       }
+        //   });
+        console.log(response);
+        })
+    }
     render() {
-        return (
-            <div>
-                <SingerImage/>
-            </div>
-        );
+        //console.log(this.state.loggedIn);
+      return (
+        <div className="App">
+          <a href='http://localhost:8888' > Login to Spotify </a>
+          <div>
+            Now Playing: { this.state.nowPlaying.name }
+          </div>
+          <div>
+            <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }}/>
+          </div>
+          { this.state.loggedIn &&
+            <button onClick={() => this.getNowPlaying()}>
+              Check Now Playing
+            </button>
+          }
+        </div>
+      );
     }
-}
-
-export default Home;
+  }
+  
+  export default Home;

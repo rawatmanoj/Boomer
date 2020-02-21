@@ -40,7 +40,7 @@ const header = () => {
                  <Nav.Link href="#home"> <FontAwesome className="fa fa-home"/></Nav.Link> 
              </Nav.Item> 
              <Nav.Item> 
-                 <Nav.Link href="#home"> <FontAwesome className="far fa-user-circle"/></Nav.Link> 
+                 <Nav.Link href="http://localhost:8888"> <FontAwesome className="far fa-user-circle"/></Nav.Link> 
              </Nav.Item> 
              </Nav>
              </Navbar.Collapse>
