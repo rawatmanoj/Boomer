@@ -11,7 +11,7 @@ const Styles = styled.div`
   
 .navbar {
     background-color:#1C262B;
-    height:100px;
+    height:60px;
 }
 .navbar-brand{
     padding-left:40px;
