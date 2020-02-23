@@ -1,9 +1,9 @@
 import React from 'react';
-import { Navbar,Nav} from 'react-bootstrap';
+import { Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import styled from 'styled-components';
 import './header.css';
 import FontAwesome from 'react-fontawesome';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faTumblr, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 
@@ -24,18 +24,33 @@ const Styles = styled.div`
     }
 }
 
+.form-control{
+    width: 360px;
+    height: 39px;
+}
 
 
 `;
 
-const header = () => {
+class header extends React.Component {
+
+  
+
+    render(){
     return (
      <Styles>
          <Navbar expand="lg">
              <Navbar.Brand href="/"><h1>Boomer</h1></Navbar.Brand>
              <Navbar.Toggle aria-controls="basic-navbar-nav" />
              <Navbar.Collapse id="basic-navbar-nav">
+            
              <Nav className="ml-auto">
+             <Form inline>
+            
+                <FormControl onChange={this.doSearch} type="text" placeholder="Search" className="mr-sm-2" />
+                <Button variant="outline-light">Search</Button>
+                
+             </Form>
              <Nav.Item> 
                  <Nav.Link href="#home"> <FontAwesome className="fa fa-home"/></Nav.Link> 
              </Nav.Item> 
@@ -44,9 +59,11 @@ const header = () => {
              </Nav.Item> 
              </Nav>
              </Navbar.Collapse>
+             
          </Navbar>
      </Styles>
     );
+    }
 };
 
 export default header;
