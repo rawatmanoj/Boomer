@@ -27,14 +27,36 @@ const Styles = styled.div`
 .form-control{
     width: 360px;
     height: 39px;
+    
 }
+
 
 
 `;
 
 class header extends React.Component {
 
-  
+    state = {
+        value: ''
+      }
+      // Must have this here so we can reset it
+      timeout = null;
+    
+      doSearch = (event) => {
+         // console.log(event);
+        // ES6 Destructuring prop
+        event.preventDefault();
+        const { callback } = this.props;
+    
+        this.setState({ value: event.target.value })
+        clearTimeout(this.timeout);
+        // Set a timeout to wait for the user to stop writing
+        // So we don´t have to make unnessesary calls
+        this.timeout = setTimeout( () => {
+          callback(this.state.value);
+        }, 500);
+      }
+    
 
     render(){
     return (
@@ -45,15 +67,15 @@ class header extends React.Component {
              <Navbar.Collapse id="basic-navbar-nav">
             
              <Nav className="ml-auto">
-             <Form inline>
+             <Form onChange={this.doSearch} inline>
             
-                <FormControl onChange={this.doSearch} type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-light">Search</Button>
+                <FormControl  type="text" placeholder="Search" className="mr-sm-2" />
+                {/* <Button variant="outline-light">Search</Button> */}
                 
              </Form>
-             <Nav.Item> 
+             {/* <Nav.Item> 
                  <Nav.Link href="#home"> <FontAwesome className="fa fa-home"/></Nav.Link> 
-             </Nav.Item> 
+             </Nav.Item>  */}
              <Nav.Item> 
                  <Nav.Link href="http://localhost:8888"> <FontAwesome className="far fa-user-circle"/></Nav.Link> 
              </Nav.Item> 

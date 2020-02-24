@@ -3,6 +3,7 @@
 .fa-user-circle{
     font-size:28px;
     padding-right: 30px;
+    padding-left: 30px;
 }
 
 .fa-home{
@@ -11,8 +12,4 @@
    padding-left: 100px;
    font-size:30px;
     }
-.ml-auto{
-    display: flex !important;
-    flex-direction: row;
-    justify-content: space-between;
-}
+

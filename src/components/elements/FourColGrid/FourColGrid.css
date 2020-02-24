@@ -1,0 +1,59 @@
+.rmdb-grid h1 {
+    padding-top: 30px;
+    font-size:32px;
+    color:#ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 28px;
+    margin-top:30px;
+    padding-left: 150px;
+    padding-bottom: 40px;
+  }
+  
+  .rmdb-grid-content {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 40px;
+    grid-row-gap: 40px;
+    /* margin-top: 100px; */
+    margin-left: 150px;
+    margin-right: 150px;
+  }
+  
+  .rmdb-grid-element {
+    background:#111111;
+    max-height: 330px;
+    animation: animateGrid 0.5s;
+    overflow: hidden;
+    border-radius: 5px;
+    background: radial-gradient(rgba(210,208,208,0.19091386554621848) 0%, rgba(210,208,208,0) 90%);
+   
+  }
+  
+  /* .swiper_container{
+    height: 360px;
+    width: 100%;
+  } */
+  
+  @keyframes animateGrid {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+  }
+  
+  @media screen and (max-width: 720px) {
+    .rmdb-grid-content {
+      grid-template-columns: auto auto;
+    }
+  
+    .rmdb-grid-element:nth-child(2n+2) {
+      margin-right: 0;
+    }
+  
+    .rmdb-grid h1 {
+      font-size:22px;
+    }
+  }

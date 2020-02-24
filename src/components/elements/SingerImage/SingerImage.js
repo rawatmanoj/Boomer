@@ -4,7 +4,7 @@ import './SingerImage.css';
 
 
 const SingerImage = (props) => {
-    console.log(props.image[0]);
+   // console.log(props.image[0]);
 
     const params = {
         loop: true,

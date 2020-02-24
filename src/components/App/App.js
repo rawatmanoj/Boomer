@@ -8,7 +8,7 @@ const App = () => {
     return (
         <BrowserRouter>
            <React.Fragment>
-             <Header/>
+           
              <Switch>
              <Route path="/" component={Home} exact />
              </Switch>

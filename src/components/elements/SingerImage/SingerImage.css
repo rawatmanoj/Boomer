@@ -8,9 +8,9 @@
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-style:solid ;
-    margin-top: 34px;
+    /* margin-top: 34px; */
     display: flex;
-    border-color: #e8e8e8;
+    border-color:#1a104d;
     justify-content:center;
     align-items:center;
     height: 307px;
