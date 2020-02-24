@@ -4,6 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import Header from '../elements/header/header';
 import FourColGrid from '../elements/FourColGrid/FourColGrid'
 import MovieThumb from '../elements/MovieThumb/MovieThumb';
+import Spinner from '../elements/Spinner/Spinner';
 const spotifyApi = new SpotifyWebApi();
 
 
@@ -46,10 +47,18 @@ class App extends Component{
 
   seacrhItems=(searchTerm)=>{
    // console.log(1);
+   if(searchTerm === ""){
+    this.setState({
+      SearchTrack:[],
+      loading:false,
+      SearchTerm:''
+     });
+   }else{
    this.setState({
     SearchTrack:[],
     loading:true
    });
+  }
     spotifyApi.searchTracks(searchTerm)
     .then(response=>{
       console.log(response);
@@ -63,13 +72,20 @@ class App extends Component{
 
   getSingerImage=()=>{
   //  console.log(1);
+  const timeout = null;
+  clearTimeout(this.timeout);
+        this.timeout = setTimeout( () => {
+         
+      
         spotifyApi.getNewReleases()
         .then(response=>{
           this.setState({
-            SingerImages:[...this.state.SingerImages, ...response.albums.items]
+            SingerImages:[...this.state.SingerImages, ...response.albums.items],
+            loading:false
           })
           
         }).catch((err)=>console.log(err));
+      }, 500);
   }
 
 render(){
@@ -100,7 +116,8 @@ render(){
     <div className="FourColGrid-home">
 
     <FourColGrid
-      header={'Search Results for "'+this.state.SearchTerm+'"'}
+      //header={'Search Results for "'+this.state.SearchTerm+'"'}
+      header={this.state.SearchTerm?`Search Results for "${this.state.SearchTerm}"`:null}
       loading={this.state.loading}
     >
      
@@ -122,7 +139,7 @@ render(){
     </div>
      :null}
 
-    
+ {this.state.loading ? <Spinner /> : null}
     </div>
   );
 }
