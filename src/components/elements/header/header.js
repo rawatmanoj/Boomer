@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import styled from 'styled-components';
 import './header.css';
+import { Link } from 'react-router-dom'
 import FontAwesome from 'react-fontawesome';
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faTumblr, faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -29,7 +30,9 @@ const Styles = styled.div`
     height: 39px;
     
 }
-
+.navbar-brand{
+    color:#ffffff;
+}
 
 
 `;
@@ -43,6 +46,7 @@ class header extends React.Component {
       timeout = null;
     
       doSearch = (event) => {
+         // console.log(this.props.history);
          // console.log(event);
         // ES6 Destructuring prop
         event.preventDefault();
@@ -62,7 +66,7 @@ class header extends React.Component {
     return (
      <Styles>
          <Navbar expand="lg">
-             <Navbar.Brand href="/"><h1>Boomer</h1></Navbar.Brand>
+             <Navbar.Brand href="/"><h2>Boomer</h2></Navbar.Brand>
              <Navbar.Toggle aria-controls="basic-navbar-nav" />
              <Navbar.Collapse id="basic-navbar-nav">
             

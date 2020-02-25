@@ -24,7 +24,7 @@ const FourColGrid = ({ header, loading, children }) => {
                return(
                    <img alt="singerImage" src={track.album.images[0].url} />
                );
-           })} */ console.log(loading)}
+           })} */}
            {header && !loading ? <h1>{header}</h1> : null}
             <div className="rmdb-grid-content">
             

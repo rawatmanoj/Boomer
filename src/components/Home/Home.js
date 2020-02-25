@@ -5,6 +5,7 @@ import Header from '../elements/header/header';
 import FourColGrid from '../elements/FourColGrid/FourColGrid'
 import MovieThumb from '../elements/MovieThumb/MovieThumb';
 import Spinner from '../elements/Spinner/Spinner';
+import Loadmore from '../elements/Loadmore/Loadmore';
 const spotifyApi = new SpotifyWebApi();
 
 
@@ -15,7 +16,9 @@ class App extends Component{
           SearchTrack:[],
           SingerImages:[],
           loading:false,
-          SearchTerm: ''
+          SearchTerm:'',
+          limit:20,
+          offset:0
           
   }
 
@@ -32,36 +35,43 @@ class App extends Component{
       }
 
   componentDidMount(){
-    this.setState({loading:true});
+  
+     this.setState({loading:true});
+   
     const params = this.getHashParams();
         const token = params.access_token;
         if (token) {
           spotifyApi.setAccessToken(token);
           this.setState({
             loggedIn: token ? true : false,
+            // loading: !token? false:null
           });
           this.getSingerImage();
         }       
-       
+      
   }
 
   seacrhItems=(searchTerm)=>{
-   // console.log(1);
+   
+   
    if(searchTerm === ""){
     this.setState({
       SearchTrack:[],
       loading:false,
-      SearchTerm:''
+      SearchTerm:'',
+      
      });
    }else{
    this.setState({
     SearchTrack:[],
-    loading:true
+    loading:true,
+    
    });
   }
-    spotifyApi.searchTracks(searchTerm)
+    spotifyApi.searchTracks(searchTerm,{limit: this.state.limit,offset:this.state.limit})
     .then(response=>{
       console.log(response);
+      
       this.setState({
         SearchTerm:searchTerm,
         SearchTrack:[...this.state.SearchTrack, ...response.tracks.items],
@@ -71,14 +81,16 @@ class App extends Component{
   }
 
   getSingerImage=()=>{
-  //  console.log(1);
-  const timeout = null;
-  clearTimeout(this.timeout);
-        this.timeout = setTimeout( () => {
+   
+  
+  let timeout = null;
+  clearTimeout(timeout);
+        timeout = setTimeout( () => {
          
       
         spotifyApi.getNewReleases()
         .then(response=>{
+       
           this.setState({
             SingerImages:[...this.state.SingerImages, ...response.albums.items],
             loading:false
@@ -88,17 +100,24 @@ class App extends Component{
       }, 500);
   }
 
-render(){
-  //console.log(this.state.loggedIn);
-  if(this.state.SearchTrack.length>0){
-    //console.log(this.state.SearchTrack[0].album.images[0].url);
-    //console.log(this.state.SearchTrack);
-  }
+  loadmore=()=>{
   
+    this.setState({
+      ...this.state,limit:this.state.limit+20,offset:this.state.offset+10
+    },()=>{
+      this.seacrhItems(this.state.SearchTerm);
+      console.log(this.state.limit);
+    })
+
+    
+  }
+
+render(){
+
   return(
     <div>
       <Header callback={this.seacrhItems}/>
-    {(this.state.SingerImages.length>0)?
+    {(this.state.SingerImages.length>0 && !this.state.SearchTerm)?
     // this.state.SingerImages.map(singerimage=> 
      <div >
       <SingerImage
@@ -116,7 +135,7 @@ render(){
     <div className="FourColGrid-home">
 
     <FourColGrid
-      //header={'Search Results for "'+this.state.SearchTerm+'"'}
+    
       header={this.state.SearchTerm?`Search Results for "${this.state.SearchTerm}"`:null}
       loading={this.state.loading}
     >
@@ -139,6 +158,11 @@ render(){
     </div>
      :null}
 
+    {this.state.SearchTerm && !this.state.loading && this.state.limit<40?<Loadmore
+    
+    callback={this.loadmore}
+
+    />:null}
  {this.state.loading ? <Spinner /> : null}
     </div>
   );

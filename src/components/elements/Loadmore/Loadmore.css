@@ -1,0 +1,24 @@
+.loadmore-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: Roboto, sans-serif;
+    color: #ffffff;
+}
+
+.button{
+   
+    background:#1C262B ;
+    width:400px;
+    border:black ;
+    height: 50px;
+    
+}
+
+.button:hover{
+    background-color: black;
+    border:#1C262B ;
+}
