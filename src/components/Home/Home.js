@@ -192,27 +192,18 @@ render(){
     />:null}
  {this.state.loading ? <Spinner /> : null}
   
-     {this.state.SearchTerm==''?
+     {this.state.SearchTerm===''?
      <NewRelease
      header={"New Releases"}
      loading={this.state.loading}
-     >
-      {this.state.NewRelease.map((track,i)=>{
-       return(
-         <MovieThumb
-         key={i}
-         clickable={true}
-         image={track.images[0].url}
-        //  songid={track.id}
-         songName={track.name}
-         
-         />
-       );
-     })}
+   
+     clickable={true}
+     image={this.state.NewRelease}
+     songid={this.state.id}
+     songName={this.state.name}
 
-
-
-     </NewRelease>
+     />
+    
      
     :null
     }

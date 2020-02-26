@@ -4,3 +4,16 @@
 .rmdb-grid-element{
     width: 100%;
 } */
+
+.swiper-container1{
+    height: auto;
+   margin-top: 80px;
+    width: 1400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.newreleaseimage{
+    height: 160px;
+    width: 68px;
+}
