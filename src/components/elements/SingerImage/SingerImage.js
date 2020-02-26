@@ -36,37 +36,37 @@ const SingerImage = (props) => {
             <div className="rmdb-heroimage"
                 
                 >
-                  <img alt="singerimage" className="rmdb-heroimage-img" src={props.image[0].images[0].url}/> 
+                  <img alt="singerimage" className="rmdb-heroimage-img" src={props.image[6].images[0].url}/> 
                 
                 </div>
                 <div className="rmdb-heroimage"
                  
                 >
-                   <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[1].images[0].url} /> 
+                   <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[7].images[0].url} /> 
                  
                 </div>
                 <div className="rmdb-heroimage"
                   
                 >
-                   <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[2].images[0].url}/> 
+                   <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[8].images[0].url}/> 
                  
                 </div>
                 <div className="rmdb-heroimage"
                  
                 >
-                  <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[3].images[0].url}/> 
+                  <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[9].images[0].url}/> 
                 
                 </div>
                 <div className="rmdb-heroimage"
                 
                 >
-                  <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[4].images[0].url}/> 
+                  <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[10].images[0].url}/> 
                 
                 </div>
                 <div className="rmdb-heroimage"
                  
                 >
-                  <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[5].images[0].url}/> 
+                  <img  alt="singerimage" className="rmdb-heroimage-img" src={props.image[11].images[0].url}/> 
                 
                 </div>
                    

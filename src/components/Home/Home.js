@@ -6,6 +6,7 @@ import FourColGrid from '../elements/FourColGrid/FourColGrid'
 import MovieThumb from '../elements/MovieThumb/MovieThumb';
 import Spinner from '../elements/Spinner/Spinner';
 import Loadmore from '../elements/Loadmore/Loadmore';
+import NewRelease from '../elements/NewRelease/NewRelease';
 const spotifyApi = new SpotifyWebApi();
 
 
@@ -18,7 +19,8 @@ class App extends Component{
           loading:false,
           SearchTerm:'',
           limit:20,
-          offset:0
+          offset:0,
+          NewRelease:[]
           
   }
 
@@ -47,7 +49,9 @@ class App extends Component{
             // loading: !token? false:null
           });
           this.getSingerImage();
-        }       
+        }     
+        
+        this.newRelease();
       
   }
 
@@ -68,7 +72,7 @@ class App extends Component{
     
    });
   }
-    spotifyApi.searchTracks(searchTerm,{limit: this.state.limit,offset:this.state.limit})
+    spotifyApi.searchTracks(searchTerm,{limit: this.state.limit,offset:this.state.offset})
     .then(response=>{
       console.log(response);
       
@@ -81,7 +85,13 @@ class App extends Component{
   }
 
   getSingerImage=()=>{
-   
+  
+    //spotifyApi.searchPlaylists('bollywood')
+    //spotifyApi.getCategoryPlaylists('latesthindi')
+    spotifyApi.getFeaturedPlaylists()
+    .then((response)=>{
+       console.log(response);
+    });
   
   let timeout = null;
   clearTimeout(timeout);
@@ -90,7 +100,7 @@ class App extends Component{
       
         spotifyApi.getNewReleases()
         .then(response=>{
-       
+          //console.log(response.albums.items[0]);
           this.setState({
             SingerImages:[...this.state.SingerImages, ...response.albums.items],
             loading:false
@@ -98,6 +108,21 @@ class App extends Component{
           
         }).catch((err)=>console.log(err));
       }, 500);
+  }
+
+  newRelease=()=>{
+
+      spotifyApi.getNewReleases()
+      .then((response)=>{
+        console.log("called");
+        this.setState({
+          NewRelease:[...this.state.NewRelease, ...response.albums.items],
+          loading:false
+        },()=>console.log(this.state.NewRelease))
+        
+      }).catch((err)=>console.log(err));
+      
+
   }
 
   loadmore=()=>{
@@ -141,6 +166,7 @@ render(){
     >
      
      {this.state.SearchTrack.map((track,i)=>{
+       if(i<20){
        return(
          <MovieThumb
          key={i}
@@ -151,6 +177,7 @@ render(){
          
          />
        );
+       }
      })}
 
 
@@ -164,6 +191,32 @@ render(){
 
     />:null}
  {this.state.loading ? <Spinner /> : null}
+  
+     {this.state.SearchTerm==''?
+     <NewRelease
+     header={"New Releases"}
+     loading={this.state.loading}
+     >
+      {this.state.NewRelease.map((track,i)=>{
+       return(
+         <MovieThumb
+         key={i}
+         clickable={true}
+         image={track.images[0].url}
+        //  songid={track.id}
+         songName={track.name}
+         
+         />
+       );
+     })}
+
+
+
+     </NewRelease>
+     
+    :null
+    }
+
     </div>
   );
 }
