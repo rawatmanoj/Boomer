@@ -1,9 +1,9 @@
 import React from 'react';
-import './NewRelease.css'
+import './TopList.css'
 import Swiper from 'react-id-swiper';
 
 
-class NewRelease extends React.Component{
+class TopList extends React.Component{
     
 
         
@@ -28,22 +28,22 @@ class NewRelease extends React.Component{
    
     return(
       
-        <div className="swiper-container1">
-              <h1>New Releases</h1>
+        <div className="swiper-container2">
+              <h1>Top List</h1>
           <Swiper {...params} shouldSwiperUpdate>
                 
               
 
-                 {this.props.images.map((image,i)=>{
+                 {this.props.image.map((element,i)=>{
                      
                   //   console.log(element.images[0].url);
                      return(
-                         <div className="newReleased">
+                         <div className="toplist">
                      {/* <div className="newReleaseImage-div"> */}
-                      <img alt="newReleaseImage" className="newReleaseImage" src={image.images[0].url} />
+                      <img alt="toplistImage" className="toplistImage" src={element.track.album.images[0].url} />
                       
                       {/* </div> */}
-                     <h5>{image.name}</h5>
+                     <h5>{element.track.name}</h5>
                       </div>
                      )
                  })}
@@ -56,4 +56,4 @@ class NewRelease extends React.Component{
      }
 }
     
-export default NewRelease;
+export default TopList;

@@ -7,6 +7,9 @@ import MovieThumb from '../elements/MovieThumb/MovieThumb';
 import Spinner from '../elements/Spinner/Spinner';
 import Loadmore from '../elements/Loadmore/Loadmore';
 import NewRelease from '../elements/NewRelease/NewRelease';
+import TopList from '../elements/TopList/TopList';
+import TopBollywood from '../elements/TopBollywood/TopBollywood';
+import Punjabi from '../elements/Punjabi/Punjabi';
 const spotifyApi = new SpotifyWebApi();
 
 
@@ -20,7 +23,10 @@ class App extends Component{
           SearchTerm:'',
           limit:20,
           offset:0,
-          NewRelease:[]
+          NewRelease:[],
+          topList:[],
+          topBollywood:[],
+          Punjabi:[]
           
   }
 
@@ -52,6 +58,9 @@ class App extends Component{
         }     
         
         this.newRelease();
+        this.topLists();
+        this.TopBollywood();
+        this.Punjabi();
       
   }
 
@@ -86,12 +95,12 @@ class App extends Component{
 
   getSingerImage=()=>{
   
-    //spotifyApi.searchPlaylists('bollywood')
-    //spotifyApi.getCategoryPlaylists('latesthindi')
-    spotifyApi.getFeaturedPlaylists()
-    .then((response)=>{
-       console.log(response);
-    });
+  //   spotifyApi.searchPlaylists('punjabi')
+  //   //spotifyApi.getCategoryPlaylists('latesthindi')
+  //  // spotifyApi.getFeaturedPlaylists()
+  //   .then((response)=>{
+  //      console.log(response);
+  //   });
   
   let timeout = null;
   clearTimeout(timeout);
@@ -112,13 +121,20 @@ class App extends Component{
 
   newRelease=()=>{
 
+     spotifyApi.getPlaylistTracks('37i9dQZF1DX5cZuAHLNjGz')
+  // spotifyApi.getCategoryPlaylists('punjabi')
+    .then((response)=>{
+       console.log(response.items);
+    })
+    
+
       spotifyApi.getNewReleases()
       .then((response)=>{
         console.log("called");
         this.setState({
           NewRelease:[...this.state.NewRelease, ...response.albums.items],
           loading:false
-        },()=>console.log(this.state.NewRelease))
+        })
         
       }).catch((err)=>console.log(err));
       
@@ -137,7 +153,49 @@ class App extends Component{
     
   }
 
+  topLists = ()=>{
+
+    spotifyApi.getPlaylistTracks('37i9dQZEVXbLiRSasKsNU9')
+    //spotifyApi.getCategoryPlaylists('toplists')
+     .then((response)=>{
+ 
+      this.setState({
+        topList:[...this.state.topList, ...response.items],
+        loading:false
+      })
+     })
+  }
+
+  TopBollywood=()=>{
+    spotifyApi.getPlaylistTracks('37i9dQZF1DWXtlo6ENS92N')
+    //spotifyApi.getCategoryPlaylists('toplists')
+     .then((response)=>{
+
+      this.setState({
+        topBollywood:[...this.state.topBollywood, ...response.items],
+        loading:false
+      })
+     })
+  }
+
+  Punjabi=()=>{
+
+    spotifyApi.getPlaylistTracks('37i9dQZF1DX5cZuAHLNjGz')
+    //spotifyApi.getCategoryPlaylists('toplists')
+     .then((response)=>{
+
+      this.setState({
+        Punjabi:[...this.state.Punjabi, ...response.items],
+        loading:false
+      })
+     })
+  }
+
 render(){
+    
+  if(this.state.Punjabi){
+   console.log(this.state.Punjabi);
+  }
 
   return(
     <div>
@@ -198,9 +256,53 @@ render(){
      loading={this.state.loading}
    
      clickable={true}
-     image={this.state.NewRelease}
+     images={this.state.NewRelease}
      songid={this.state.id}
      songName={this.state.name}
+
+     />
+    
+     
+    :null
+    }
+     {this.state.SearchTerm===''?
+     <TopList
+     header={"New Releases"}
+     loading={this.state.loading}
+   
+     clickable={true}
+     image={this.state.topList}
+    
+
+     />
+    
+     
+    :null
+    }
+
+ { this.state.SearchTerm===''?
+    <TopBollywood
+    
+     loading={this.state.loading}
+   
+     clickable={true}
+     image={this.state.topBollywood}
+    
+
+     />
+    
+     
+    :null
+    }
+
+{ this.state.SearchTerm===''?
+    <Punjabi
+    
+     loading={this.state.loading}
+   
+     clickable={true}
+     image={this.state.Punjabi}
+    
 
      />
     

@@ -16,9 +16,9 @@ const SingerImage = (props) => {
           clickable: true
         },
         autoplay: {
-            delay: 3000,
-            disableOnInteraction: false
-          },
+          delay: 3000,
+          disableOnInteraction: false
+        },
         loopFillGroupWithBlank: false,
         navigation: {
             nextEl: '.swiper-button-next',

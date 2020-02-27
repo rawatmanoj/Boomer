@@ -1,13 +1,9 @@
-import React from 'react';
-import './NewRelease.css'
+import React, { Component } from 'react';
+import './Punjabi.css'
 import Swiper from 'react-id-swiper';
 
-
-class NewRelease extends React.Component{
-    
-
-        
-     render(){ 
+class Punjabi extends Component {
+    render(){ 
         
        
         const params = {
@@ -28,22 +24,22 @@ class NewRelease extends React.Component{
    
     return(
       
-        <div className="swiper-container1">
-              <h1>New Releases</h1>
+        <div className="swiper-container4">
+              <h1>Top Punjabi</h1>
           <Swiper {...params} shouldSwiperUpdate>
                 
               
 
-                 {this.props.images.map((image,i)=>{
+                 {this.props.image.map((element,i)=>{
                      
-                  //   console.log(element.images[0].url);
+               
                      return(
-                         <div className="newReleased">
-                     {/* <div className="newReleaseImage-div"> */}
-                      <img alt="newReleaseImage" className="newReleaseImage" src={image.images[0].url} />
+                         <div className="Punjabi">
+                
+                      <img alt="PunjabiImage" className="PunjabiImage" src={element.track.album.images[0].url} />
                       
-                      {/* </div> */}
-                     <h5>{image.name}</h5>
+                    
+                     <h5>{element.track.name}</h5>
                       </div>
                      )
                  })}
@@ -55,5 +51,5 @@ class NewRelease extends React.Component{
     );
      }
 }
-    
-export default NewRelease;
+
+export default Punjabi;
