@@ -224,6 +224,7 @@ render(){
     >
      
      {this.state.SearchTrack.map((track,i)=>{
+       console.log(track);
        if(i<20){
        return(
          <MovieThumb

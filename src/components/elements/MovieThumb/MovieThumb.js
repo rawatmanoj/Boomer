@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './MovieThumb.css'
 
 const MovieThumb = ({songName,songid,image,clickable}) => {
+  console.log(songid);
     return (
         <div className="rmdb-moviethumb">
     {/* You can send props via the Links "to" object. Here we create our own "movieName" */}
