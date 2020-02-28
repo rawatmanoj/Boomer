@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../../components/Home/Home';
-import FourColGrid from '../elements/FourColGrid/FourColGrid';
+import Song from '../../Song/Song';
 
 const App = () => {
     return (
@@ -10,7 +10,7 @@ const App = () => {
            
              <Switch>
              <Route path="/" component={Home} exact />
-             <Route path="/search-results" component={FourColGrid}/>
+             <Route path="/:songid" component={Song} exact />
              </Switch>
            </React.Fragment>
         </BrowserRouter>

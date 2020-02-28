@@ -1,6 +1,7 @@
 import React from 'react';
 import './TopBollywood.css'
 import Swiper from 'react-id-swiper';
+import {Link} from 'react-router-dom';
 
 
 class TopBollywood extends React.Component{
@@ -36,13 +37,13 @@ class TopBollywood extends React.Component{
 
                  {this.props.image.map((element,i)=>{
                      
-               
+              // console.log(element);
                      return(
                          <div className="TopBollywood">
-                
+                 <Link to={{ pathname: `/${element.track.id}`,  songName: `${element.track.name}`}}>
                       <img alt="TopBollywoodImage" className="TopBollywoodImage" src={element.track.album.images[0].url} />
                       
-                    
+                      </Link>
                      <h5>{element.track.name}</h5>
                       </div>
                      )

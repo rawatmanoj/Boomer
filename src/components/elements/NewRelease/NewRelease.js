@@ -1,7 +1,7 @@
 import React from 'react';
 import './NewRelease.css'
 import Swiper from 'react-id-swiper';
-
+import {Link} from 'react-router-dom';
 
 class NewRelease extends React.Component{
     
@@ -36,13 +36,13 @@ class NewRelease extends React.Component{
 
                  {this.props.images.map((image,i)=>{
                      
-                  //   console.log(element.images[0].url);
+                    // console.log(image);
                      return(
                          <div className="newReleased">
-                     {/* <div className="newReleaseImage-div"> */}
+                    <Link to={{ pathname: `/${image.id}`,  movieName: `${image.name}`}}>
                       <img alt="newReleaseImage" className="newReleaseImage" src={image.images[0].url} />
-                      
-                      {/* </div> */}
+                      </Link>
+           
                      <h5>{image.name}</h5>
                       </div>
                      )

@@ -83,7 +83,7 @@ class App extends Component{
   }
     spotifyApi.searchTracks(searchTerm,{limit: this.state.limit,offset:this.state.offset})
     .then(response=>{
-      console.log(response);
+     // console.log(response);
       
       this.setState({
         SearchTerm:searchTerm,
@@ -121,16 +121,17 @@ class App extends Component{
 
   newRelease=()=>{
 
-     spotifyApi.getPlaylistTracks('37i9dQZF1DX5cZuAHLNjGz')
-  // spotifyApi.getCategoryPlaylists('punjabi')
-    .then((response)=>{
-       console.log(response.items);
+    // spotifyApi.getPlaylistTracks('37i9dQZF1DX5cZuAHLNjGz')
+   //spotifyApi.getTrack('57DhVYA7E1CyrE4OKuyLb7')
+   spotifyApi.getArtist('6P5NO5hzJbuOqSdyPB7SJM')
+   .then((response)=>{
+      // console.log(response);
     })
     
 
       spotifyApi.getNewReleases()
       .then((response)=>{
-        console.log("called");
+        //console.log(response.albums.items);
         this.setState({
           NewRelease:[...this.state.NewRelease, ...response.albums.items],
           loading:false
@@ -147,7 +148,7 @@ class App extends Component{
       ...this.state,limit:this.state.limit+20,offset:this.state.offset+10
     },()=>{
       this.seacrhItems(this.state.SearchTerm);
-      console.log(this.state.limit);
+     // console.log(this.state.limit);
     })
 
     
@@ -194,7 +195,7 @@ class App extends Component{
 render(){
     
   if(this.state.Punjabi){
-   console.log(this.state.Punjabi);
+  // console.log(this.state.Punjabi);
   }
 
   return(
@@ -224,7 +225,7 @@ render(){
     >
      
      {this.state.SearchTrack.map((track,i)=>{
-       console.log(track);
+     //  console.log(track);
        if(i<20){
        return(
          <MovieThumb
@@ -251,27 +252,10 @@ render(){
     />:null}
  {this.state.loading ? <Spinner /> : null}
   
-     {this.state.SearchTerm===''?
-     <NewRelease
-     header={"New Releases"}
-     loading={this.state.loading}
-   
-     clickable={true}
-     images={this.state.NewRelease}
-     songid={this.state.id}
-     songName={this.state.name}
-
-     />
-    
      
-    :null
-    }
      {this.state.SearchTerm===''?
      <TopList
-     header={"New Releases"}
-     loading={this.state.loading}
-   
-     clickable={true}
+  
      image={this.state.topList}
     
 
@@ -284,9 +268,7 @@ render(){
  { this.state.SearchTerm===''?
     <TopBollywood
     
-     loading={this.state.loading}
    
-     clickable={true}
      image={this.state.topBollywood}
     
 
@@ -299,9 +281,7 @@ render(){
 { this.state.SearchTerm===''?
     <Punjabi
     
-     loading={this.state.loading}
    
-     clickable={true}
      image={this.state.Punjabi}
     
 

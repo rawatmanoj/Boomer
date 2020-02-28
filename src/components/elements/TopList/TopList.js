@@ -1,6 +1,7 @@
 import React from 'react';
 import './TopList.css'
 import Swiper from 'react-id-swiper';
+import {Link} from 'react-router-dom';
 
 
 class TopList extends React.Component{
@@ -36,13 +37,13 @@ class TopList extends React.Component{
 
                  {this.props.image.map((element,i)=>{
                      
-                  //   console.log(element.images[0].url);
+                     //console.log(element.track.id);
                      return(
                          <div className="toplist">
-                     {/* <div className="newReleaseImage-div"> */}
+                   <Link to={{ pathname: `/${element.track.id}`,  songName: `${element.track.name}`}}>
                       <img alt="toplistImage" className="toplistImage" src={element.track.album.images[0].url} />
-                      
-                      {/* </div> */}
+                      </Link>
+                    
                      <h5>{element.track.name}</h5>
                       </div>
                      )
