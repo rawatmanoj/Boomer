@@ -15,21 +15,26 @@ const SongInfo = ({ song, artist }) => (
           image={artist.images[0].url}
           clickable={false}
         />
+         <h2 className="rmdb-director">{artist.name}</h2>
       </div>
       <div className="rmdb-movieinfo-text">
-        <h1>{song.name}</h1>
-        <h3>PLOT</h3>
+        <h1>Song Name:</h1><h3>{song.name}</h3>
+        
        
-        <h3>IMDB RATING</h3>
-           <div>{song.popularity}</div>
+        <h3 style={{paddingTop:'20px'}}>Popularity:</h3>
+           <div className="pop">{song.popularity}</div>
      
-       
-     <p className="rmdb-director">{artist.name}</p>
+           <audio id="myAudio">
+           
+              <source src={song.preview_url} type="audio/mpeg"/>
+                 Your browser does not support the audio element.
+                  </audio>
+    
 
       </div>
       {/* <FontAwesome className="fa-film" name="film" size="5x" /> */}
     </div>
-    dfbfb
+    
   </div>
 )
 

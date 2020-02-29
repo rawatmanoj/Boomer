@@ -6,6 +6,9 @@ const spotifyApi = new SpotifyWebApi();
 
 class Song extends Component {
 
+
+    
+
     state={
         song:null,
         loading:false,
@@ -34,12 +37,12 @@ class Song extends Component {
     render() {
       
         if(this.state.song!==null){
-               console.log(this.state.song.album.images[0].url);
+               console.log(this.state.song);
               
         }
         if(this.state.artist!==null){
           
-            console.log(this.state.artist.images[0].url);
+          //  console.log(this.state.artist.images[0].url);
      }
    
       
