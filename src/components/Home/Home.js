@@ -10,6 +10,7 @@ import NewRelease from '../elements/NewRelease/NewRelease';
 import TopList from '../elements/TopList/TopList';
 import TopBollywood from '../elements/TopBollywood/TopBollywood';
 import Punjabi from '../elements/Punjabi/Punjabi';
+import Login from '../elements/Login/Login';
 const spotifyApi = new SpotifyWebApi();
 
 
@@ -95,13 +96,7 @@ class App extends Component{
 
   getSingerImage=()=>{
   
-  //   spotifyApi.searchPlaylists('punjabi')
-  //   //spotifyApi.getCategoryPlaylists('latesthindi')
-  //  // spotifyApi.getFeaturedPlaylists()
-  //   .then((response)=>{
-  //      console.log(response);
-  //   });
-  
+
   let timeout = null;
   clearTimeout(timeout);
         timeout = setTimeout( () => {
@@ -120,15 +115,6 @@ class App extends Component{
   }
 
   newRelease=()=>{
-
-    // spotifyApi.getPlaylistTracks('37i9dQZF1DX5cZuAHLNjGz')
-   //spotifyApi.getTrack('57DhVYA7E1CyrE4OKuyLb7')
-   spotifyApi.getArtist('6P5NO5hzJbuOqSdyPB7SJM')
-   .then((response)=>{
-      // console.log(response);
-    })
-    
-
       spotifyApi.getNewReleases()
       .then((response)=>{
         //console.log(response.albums.items);
@@ -157,7 +143,7 @@ class App extends Component{
   topLists = ()=>{
 
     spotifyApi.getPlaylistTracks('37i9dQZEVXbLiRSasKsNU9')
-    //spotifyApi.getCategoryPlaylists('toplists')
+
      .then((response)=>{
  
       this.setState({
@@ -169,7 +155,7 @@ class App extends Component{
 
   TopBollywood=()=>{
     spotifyApi.getPlaylistTracks('37i9dQZF1DWXtlo6ENS92N')
-    //spotifyApi.getCategoryPlaylists('toplists')
+  
      .then((response)=>{
 
       this.setState({
@@ -182,7 +168,7 @@ class App extends Component{
   Punjabi=()=>{
 
     spotifyApi.getPlaylistTracks('37i9dQZF1DX5cZuAHLNjGz')
-    //spotifyApi.getCategoryPlaylists('toplists')
+   
      .then((response)=>{
 
       this.setState({
@@ -194,14 +180,13 @@ class App extends Component{
 
 render(){
     
-  if(this.state.Punjabi){
-  // console.log(this.state.Punjabi);
-  }
 
   return(
+    
     <div>
-      <Header callback={this.seacrhItems}/>
-    {(this.state.SingerImages.length>0 && !this.state.SearchTerm)?
+      {!this.state.loggedIn?<Login/>:null}
+      {this.state.loggedIn?<Header callback={this.seacrhItems}/>:null}
+    {(this.state.SingerImages.length>0 && !this.state.SearchTerm && this.state.loggedIn)?
     // this.state.SingerImages.map(singerimage=> 
      <div >
       <SingerImage
@@ -214,7 +199,7 @@ render(){
      
     :null}
 
-    {(this.state.SearchTrack)?
+    {(this.state.SearchTrack &&  this.state.loggedIn)?
 
     <div className="FourColGrid-home">
 
@@ -245,15 +230,15 @@ render(){
     </div>
      :null}
 
-    {this.state.SearchTerm && !this.state.loading && this.state.limit<40?<Loadmore
+    {this.state.SearchTerm && !this.state.loading && this.state.limit<40 &&  this.state.loggedIn?<Loadmore
     
     callback={this.loadmore}
 
     />:null}
- {this.state.loading ? <Spinner /> : null}
+ 
   
      
-     {this.state.SearchTerm===''?
+     {this.state.SearchTerm==='' &&  this.state.loggedIn && !this.state.loading?
      <TopList
   
      image={this.state.topList}
@@ -265,7 +250,7 @@ render(){
     :null
     }
 
- { this.state.SearchTerm===''?
+ { this.state.SearchTerm==='' &&  this.state.loggedIn  && !this.state.loading?
     <TopBollywood
     
    
@@ -278,7 +263,7 @@ render(){
     :null
     }
 
-{ this.state.SearchTerm===''?
+{ this.state.SearchTerm==='' &&  this.state.loggedIn  && !this.state.loading?
     <Punjabi
     
    
@@ -290,7 +275,7 @@ render(){
      
     :null
     }
-
+{this.state.loading && this.state.loggedIn ? <Spinner /> : null}
     </div>
   );
 }
